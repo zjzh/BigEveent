@@ -1,0 +1,69 @@
+body {
+  width: 100%;
+  height: 100vh;
+  background: url('../image/login/bg.png') no-repeat center top;
+  background-size: cover;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+}
+.main {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 400px;
+  height: 310px;
+  background: rgba(0,0,0,.1);
+  box-shadow: 1px -1px 6px #fff;
+  border-radius: 12px;
+}
+.title-box {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+.title-box h2 {
+  font-size: 22px;
+  color: #fff;
+  font-weight: 500;
+}
+.link-login {
+  display: none;
+}
+.layui-form {
+  padding: 20px 30px;
+}
+.pub {
+  display: flex;
+  justify-content: flex-end;
+}
+.layui-form-item a {
+  font-size: 14px;
+  color: #fff;
+  transition: color .3s;
+}
+.layui-form-item a:hover {
+  color: rgb(26, 108, 223);
+}
+.layui-form-item {
+  position: relative;
+}
+.layui-form-item i {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.layui-form-item .layui-input {
+  padding-left: 32px;
+  /* transition: all .4s linear; */
+} 
+/* .layui-form-item .layui-input:focus {
+  border-color: rgb(8, 160, 221) !important;
+  box-shadow: 1px 1px 8px 1px rgb(8, 160, 221) !important;
+}*/
+.form-reg {
+  padding: 0 30px !important;
+} 
