@@ -1,0 +1,63 @@
+.layui-logo {
+  font-size: 20px !important;
+  cursor: pointer;
+}
+.layui-footer {
+  text-align: center;
+}
+
+.layui-side i {
+  vertical-align: -1px;
+  font-size: 15px;
+}
+.layui-side .layui-icon {
+  margin-right: 8px;
+  margin-left: 20px;
+}
+.layui-body {
+  overflow: hidden;
+}
+iframe {
+  width: 100vw;
+  height: 100vh;
+}
+a {
+  transition: none !important;
+}
+.userinfo {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 12px;
+  user-select: none;
+}
+.layui-side-scroll .userinfo {
+  border-bottom: 1px solid #282b33;
+}
+.layui-nav-img {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+.avater{
+  position: relative;
+  top: 3px;
+  line-height: 40px;
+}
+.userinfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text-avater {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: rgb(0, 150, 136);
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+  margin-right: 12px;
+}
