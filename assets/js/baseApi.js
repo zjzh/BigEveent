@@ -6,7 +6,7 @@
 $.ajaxPrefilter(options => {
   options.url = 'http://www.liulongbin.top:3007' + options.url
 
-  console.log(options);
+  // console.log(options)
   // 判断该接口是否有权限
   if (options.url.indexOf('/my/') !== -1) {
     // 为有权限的接口统一添加token
@@ -18,7 +18,7 @@ $.ajaxPrefilter(options => {
   // 防止用户通过输入url的方式来访问后台 *全局拦截
   // 无论成功还是失败都会调用这个jquery提供的 complete函数
   options.complete = function(res) {
-    console.log(res)
+    // console.log(res)
     // 在complete回调函数中可以通过responseJSON拿到服务器返回响应回来的数据
     let value = res.responseJSON
     if (value.status === 1 && value.message === value.message) {

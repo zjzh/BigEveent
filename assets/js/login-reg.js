@@ -107,7 +107,7 @@ $(function () {
     // 对res对象进行解构
     let { status, message, token } = res
     // 登录失败
-    if (status != 0) return layer.msg(message)
+    if (status != 0) return layer.msg('请输入正确的用户名和密码!')
 
     // 登录成功
     layer.msg(message)

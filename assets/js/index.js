@@ -52,16 +52,21 @@ function renderUserInfo(res) {
   // 解构res对象
   let { nickname, user_pic, username } = res.data
   // 获取用户名
-  let uname = username || nickname
+  let uname = nickname || username
   $('.welcmon-user').text('欢迎\t\t' + uname)
 
-  // 判断有没有头像 有就渲染出来同时隐藏文本头像
+  // 判断有没有头像 有就创建img标签没有则显示默认文本头像
+  let img = $('<img src="" class="layui-nav-img"/>')
   if (user_pic !== null) {
-    $('.layui-nav-img').attr('src', user_pic).show()
-    $('.text-avater').hide()
+      // 先进行清除后添加
+      $('.layui-nav-img').remove()
+      // 添加头像到userinfo DOM元素中
+      $('.userinfo').prepend(img)
+      $('.layui-nav-img').attr('src', user_pic).show()
+      $('.text-avater').hide()
   } else {
     // 渲染文本头像
     $('.layui-nav-img').hide()
-    $('.text-avater').text(username[0].toUpperCase()).show()
+    $('.text-avater').text(uname[0].toUpperCase()).show()
   }
 }
