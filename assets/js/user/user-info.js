@@ -53,6 +53,7 @@ $(function() {
     e.preventDefault()
     // serialize()函数可以拿到表单里面的所有值
     let formData = $(this).serialize()
+    console.log(formData)
     $.ajax({
       method: 'POST',
       url: '/my/userinfo',

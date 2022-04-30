@@ -35,10 +35,12 @@ $(function () {
         // 修改密码失败
         if (res.stauts !== 0) return layer.msg(res.message)
 
-        // 修改密码成功
-        layer.msg(res.message)
         // 重置密码框
         $('.form-reg')[0].reset() // 这里不清除为什么这个方法不能重置  
+
+        // 修改密码成功
+        layer.msg(res.message)
+        
       }
     })
   })

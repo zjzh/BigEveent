@@ -62,6 +62,7 @@ $(function () {
         password
       },
       success: res => {
+        console.log(res);
         // 调用传递数据
         getRegData(res)
       }
