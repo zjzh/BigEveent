@@ -15,11 +15,11 @@ $(function () {
 
     // 时间
     let hh = time.getHours()
-    hh = hh < 10 ? '0' : hh
+    hh = hh < 10 ? '0' + hh : hh
     let mm = time.getMinutes()
-    mm = mm < 10 ? '0' : mm
+    mm = mm < 10 ? '0' + mm : mm
     let ss = time.getSeconds()
-    ss = ss < 10 ? '0' : ss
+    ss = ss < 10 ? '0' + ss : ss
     return y + '-' + m + '-' + d + ' ' + hh + ':' + mm + ':' + ss
   }
 
