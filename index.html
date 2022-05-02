@@ -5,107 +5,90 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>后台主页</title>
+  <title>login-后台管理系统</title>
+  <!-- 导入normalize进行样式的初始化 -->
+  <link rel="stylesheet" href="assets/lib/normalize.css">
+  <!-- 导入layui的样式 -->
   <link rel="stylesheet" href="assets/lib/layui/css/layui.css">
-  <!-- 导入字体图标 -->
-  <link rel="stylesheet" href="assets/fonts/strawberry-v2.0.0/style.css">
-  <link rel="stylesheet" href="assets/css/index.css">
-  <script src="assets/lib/jquery.js"></script>
+  <!-- 导入登录页面和注册页面的样式 -->
+  <link rel="stylesheet" href="assets/css/login.css">
+  <!-- 导入layui的js -->
   <script src="assets/lib/layui/layui.js"></script>
+  <!-- 导入jquery -->
+  <script src="assets/lib/jquery.js"></script>
 </head>
 
 <body>
-  <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-      <div class="layui-logo layui-hide-xs layui-bg-black"><b>文章管理系统</b></div>
-      <!-- 头部区域（可配合layui 已有的水平导航） -->
-      <ul class="layui-nav layui-layout-right">
-        <li class="layui-nav-item layui-hide layui-show-md-inline-block l-center">
-          <a href="javascript:;" class="userinfo">
-            <!-- <img src="" class="layui-nav-img"> -->
-            <!-- 默认用户 -->
-            <span class="text-avater avater">|</span>
-            <span>个人中心</span>
-          </a>
-          <dl class="layui-nav-child">
-            <dd><a href="./user/user-info.html" target="fm">基本资料</a></dd>
-            <dd><a href="./user/user-avatar.html" target="fm">更换头像</a></dd>
-            <dd><a href="./user/user-reg.html" target="fm">重置密码</a></dd>
-            <dd id="sign-out"><a href="javascript:;">退出</a></dd>
-          </dl>
-        </li>
-      </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-      <div class="layui-side-scroll">
-        <!-- 左侧导航区域（可配合layui已有的垂直导航） lay-shrink代表值展示一项菜单-->
-        <div class="userinfo">
-          <!-- <img src="" class="layui-nav-img"> -->
-          <span class="text-avater"></span>
-          <span class="welcmon-user">欢迎 ****</span>
+  <main class="main">
+    <!-- 标题 -->
+    <section class="title-box">
+      <h2>文章管理系统</h2>
+    </section>
+    <!-- 登录 -->
+    <section class="link-reg">
+      <!-- 登录表单 -->
+      <form class="layui-form form-login">
+        <!-- 用户名 -->
+        <div class="layui-form-item">
+          <i class="layui-icon layui-icon-username"></i>
+          <input type="text" name="username" required lay-verify="required|username" placeholder="请输入用户名"
+            autocomplete="off" class="layui-input">
         </div>
-        <ul class="layui-nav layui-nav-tree" lay-shrink="all">
-          <!-- layui-this 默认选中首页 -->
-          <li class="layui-nav-item layui-this">
-            <!-- 指定target跳转到iframe标签 -->
-            <a href="home/home.html" target="fm"><i class="czs-home-l"></i>&nbsp;&nbsp;首页</a>
-          </li>
-          <li class="layui-nav-item">
-            <a class="" href="javascript:;"><i class="czs-doc-file-l"></i>&nbsp;&nbsp;文章管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="./article/category.html" target="fm">
-                  <i class="layui-icon layui-icon-app"></i>文章类别
-                </a>
-              </dd>
-              <dd>
-                <a href="./article/art-list.html" target="fm"><i class="layui-icon layui-icon-app"></i>文章列表
-                </a>
-              </dd>
-              <dd>
-                <a href="./article/write-art.html" target="fm"><i class="layui-icon layui-icon-app"></i>发表文章
-                </a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;"><i class="czs-user-l"></i>&nbsp;&nbsp;个人中心</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="./user/user-info.html" target="fm"><i class="layui-icon layui-icon-app"></i>基本资料
-                </a>
-              </dd>
-              <dd>
-                <a href="./user/user-avatar.html" target="fm"><i class="layui-icon layui-icon-app"></i>更换头像
-                </a>
-              </dd>
-              <dd>
-                <a href="./user/user-reg.html" target="fm"><i class="layui-icon layui-icon-app"></i>重置密码
-                </a>
-              </dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-    </div>
+        <!-- 密码 -->
+        <div class="layui-form-item">
+          <i class="layui-icon layui-icon-password"></i>
+          <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码"
+            autocomplete="off" class="layui-input">
+        </div>
+        <!-- 提交按钮区域 -->
+        <div class="layui-form-item pub">
+          <button class="layui-btn layui-btn-normal" lay-submit>登录</button>
+          <button type="reset" class="layui-btn layui-btn-warm">重置</button>
+        </div>
+        <!-- 去注册 -->
+        <div class="layui-form-item pub">
+          <a href="javaScript:void(0);" class="reg">注册账号</a>
+        </div>
+      </form>
+    </section>
 
-    <div class="layui-body">
-      <!-- 内容主体区域 -->
-      <div>
-        <!-- 默认显示首页 其他导航发生点击就会替换src -->
-        <iframe name="fm" src="./home/home.html" frameborder="0"></iframe>
-      </div>
-    </div>
-
-    <div class="layui-footer">
-      <!-- 底部固定区域 -->
-      <span>文章管理系统1.0</span>
-    </div>
-  </div>
-  <!-- 导入baseApi拼接根路径 -->
-  <script src="./assets/js/baseApi.js"></script>
-  <script src="./assets/js/index.js"></script>
+    <!-- 注册 -->
+    <section class="link-login">
+      <!-- 注册表单 -->
+      <form class="layui-form form-reg">
+        <!-- 用户名 -->
+        <div class="layui-form-item">
+          <i class="layui-icon layui-icon-username"></i>
+          <input type="text" name="username" required lay-verify="required|username" placeholder="请输入用户名"
+            autocomplete="off" class="layui-input reg-username2">
+        </div>
+        <!-- 密码 -->
+        <div class="layui-form-item">
+          <i class="layui-icon layui-icon-password"></i>
+          <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码"
+            autocomplete="off" class="layui-input reg-pass2">
+        </div>
+        <!-- 确认密码 -->
+        <div class="layui-form-item">
+          <i class="layui-icon layui-icon-password"></i>
+          <input type="password" name="password" required lay-verify="required|pass|repass" placeholder="请确认密码"
+            autocomplete="off" class="layui-input">
+        </div>
+        <!-- 注册按钮区域 -->
+        <div class="layui-form-item pub">
+          <button class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit>注册</button>
+        </div>
+        <!-- 去登录 -->
+        <div class="layui-form-item pub">
+          <a href="javaScript:void(0);" class="login">去登录</a>
+        </div>
+      </form>
+    </section>
+  </main>
+  <!-- 导入统一的接口 -->
+  <script src="assets/js/baseApi.js"></script>
+  <!-- 导入登录页面和注册页面的js -->
+  <script src="assets/js/index.js"></script>
 </body>
 
 </html>

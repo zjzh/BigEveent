@@ -1,72 +1,122 @@
 $(function () {
-  // 调用getUserInfo()获取用户基本信息
-  getUserInfo()
-
-  // 退出功能
+  // 去注册
+  $('.reg').click(function () {
+    $('.link-reg').hide()
+    $('.link-login').show()
+  })
+  // 去登录
+  $('.login').click(function () {
+    $('.link-login').hide()
+    $('.link-reg').show()
+  })
+  // 从layui中获取form对象
+  let form = layui.form
+  // 从layui中获取layer对象才能调用提示框
   let layer = layui.layer
-  $('#sign-out').click(function () {
-    layer.confirm('确定退出?', { icon: 3, title: '提示' }, function (index) {
-      // 退出跳转到登录
-      window.location.replace('../../login.html')
-      // 清空token
-      localStorage.removeItem('token')
+  // 自定义校验规则
+  form.verify({
+    username: function (value, item) { //value：表单的值、item：表单的DOM对象
+      if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+        return '用户名不能有特殊字符';
+      }
+      if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+        return '用户名首尾不能出现下划线\'_\'';
+      }
+      if (/^\d+\d+\d$/.test(value)) {
+        return '用户名不能全为数字';
+      }
+    },
+
+    //我们既支持上述函数式的方式，也支持下述数组的形式
+    //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+    pass: [
+      /^[\S]{6,12}$/
+      , '密码必须6到12位，且不能出现空格'
+    ],
+    repass: value => {
+      /* 
+         1.value参数拿到的是确认密码框里面的内容
+         2.还需要拿到密码框里面的内容
+         3.然后进行相等的判断
+         4.如果里面的值不相等则返回一个错误提示
+      */
+      let reginput = $('.reg-pass2').val()
+
+      if (value != reginput) return '两次输入的密码不一致'
+    }
+  })
+
+  // 提交注册信息
+  $('.form-reg').submit(function (e) {
+    // 拿到注册的用户名
+    let username = $('.reg-username2').val()
+    // 拿到密码
+    let password = $('.reg-pass2').val()
+    // 阻止默认提交表单
+    e.preventDefault()
+    $.ajax({
+      method: 'POST',
+      url: '/api/reguser',
+      data: {
+        username,
+        password
+      },
+      success: res => {
+        console.log(res);
+        // 调用传递数据
+        getRegData(res)
+      }
     })
   })
-})
 
-// 获取用户基本信息
-function getUserInfo() {
-  $.ajax({
-    method: 'GET',
-    url: '/my/userinfo',
-    // // 把token添加到请求头这样才能访问有权限的接口
-    // headers: {
-    //   Authorization: localStorage.getItem('token') || ''
-    // },
-    success: res => {
-      console.log(res)
-      let { status, message } = res
-      // 获取用户信息失败
-      if (status != 0) return layui.layer.msg(message)
+  // 注册的处理逻辑函数
+  function getRegData(res) {
+    // 注册失败
+    if (res.status != 0) return layer.msg(res.message)
 
-      // 获取成功调用renderUserInfo函数
-      renderUserInfo(res)
-    },
-    // 防止用户通过输入url的方式来访问后台
-    // 无论成功还是失败都会调用这个jquery提供的 complete函数
-    // complete(res) {
-    //   console.log(res)
-    //   // 在complete回调函数中可以通过responseJSON拿到服务器返回响应回来的数据
-    //   let value = res.responseJSON
-    //   if (value.status === 1 && value.message === value.message) {
-    //     // 跳转到登录页
-    //     window.location.replace('../../login.html')
-    //     // 清空token
-    //     localStorage.removeItem('token')
-    //   }
-    // }
-  })
-}
+    // 注册成功
 
-function renderUserInfo(res) {
-  // 解构res对象
-  let { nickname, user_pic, username } = res.data
-  // 获取用户名
-  let uname = nickname || username
-  $('.welcmon-user').text('欢迎\t\t' + uname)
-
-  // 判断有没有头像 有就创建img标签没有则显示默认文本头像
-  let img = $('<img src="" class="layui-nav-img"/>')
-  if (user_pic !== null) {
-      // 先进行清除后添加
-      $('.layui-nav-img').remove()
-      // 添加头像到userinfo DOM元素中
-      $('.userinfo').prepend(img)
-      $('.layui-nav-img').attr('src', user_pic).show()
-      $('.text-avater').hide()
-  } else {
-    // 渲染文本头像
-    $('.layui-nav-img').hide()
-    $('.text-avater').text(uname[0].toUpperCase()).show()
+    // 成功后的提示信息
+    layer.msg(res.message)
+    // 自动跳转到登录页面
+    $('.login').click()
+    // 重置注册表单
+    $('.form-reg').get(0).reset()
   }
-}
+
+  // 登录信息
+  $('.form-login').submit(function (e) {
+    e.preventDefault()
+    // 拿到表单里面的所有值
+    let data = $(this).serialize()
+
+    // 提交发起登录请求
+    $.ajax({
+      method: 'POST',
+      url: '/api/login',
+      // 表单里面的值
+      data: data,
+      success: res => {
+        // 调用登录的函数
+        getLogin(res)
+      }
+    })
+  })
+
+  // 登录的操作逻辑
+  function getLogin(res) {
+    // 对res对象进行解构
+    let { status, message, token } = res
+    // 登录失败
+    if (status != 0) return layer.msg('请输入正确的用户名和密码!')
+
+    // 登录成功
+    layer.msg(message)
+
+    // 把登录的token存储在本地 token用于记录用户登录信息还有用来访问有权限的接口
+    window.localStorage.setItem('token', token)
+
+    // 登录成功后跳转到后台
+    window.location.replace('./main.html')
+  }
+})

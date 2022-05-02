@@ -23,7 +23,7 @@ $.ajaxPrefilter(options => {
     let value = res.responseJSON
     if (value.status === 1 && value.message === value.message) {
       // 跳转到登录页
-      window.location.replace('../../login.html')
+      window.location.replace('../../index.html')
       // 清空token
       localStorage.removeItem('token')
     }
